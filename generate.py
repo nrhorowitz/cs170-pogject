@@ -5,18 +5,23 @@ from random import randint
 # returns dictionary header --> data -->
 def generate(n, k, ratio):
     returnData = {}
-    returnData['header'] = [n, k]
+    returnData['header'] = [n, k, ratio]
     data = []
-    for _ in range(n):
+    for i in range(n):
         dataRow = []
-        for _ in range(n):
-            append = randint(0, ratio)
-            if append > 8:
-                append = 'X'
-            else:
-                append = '1'
+        for j in range(n):
+            append = randint(ratio, (2*ratio) - 1)
+            kVal = randint(0, 100)
+            if k > kVal:
+                append = 2*ratio*n
+            if i == j:
+                append = 0
             dataRow.append(append)
         data.append(dataRow)
+    # make sure symmmetric
+    for i in range(n):
+        for j in range(i, n):
+            data[i][j] = data[j][i]
     returnData['data'] = data
     return returnData
     
@@ -28,6 +33,8 @@ def displayInput(data):
     for i in range(length):
         s = ""
         for j in range(length):
-            s += d[i][j] + " "
+            s += str(d[i][j]) + " "
         print(s)
 
+def displayRaw(data):
+    print(data['data'])
