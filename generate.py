@@ -8,7 +8,7 @@ labelLookup = {
 
 # n is number of locations
 # k is number of TAs
-# ratio is percentage of edges 
+# ratio is percentage of edges
 # returns dictionary header --> data -->
 def generate(n, k, ratio):
     returnData = {}
@@ -31,7 +31,7 @@ def generate(n, k, ratio):
             data[i][j] = data[j][i]
     returnData['data'] = data
     return returnData
-    
+
 
 # data is list of lists
 def displayInput(data):
@@ -166,4 +166,12 @@ def generateOwen(n):
     appendEdge(graph, 21, 16, randint(n, (2*n) - 1))
     appendEdge(graph, 43, 15, randint(n, (2*n) - 1))
     appendEdge(graph, 44, 13, randint(n, (2*n) - 1))
+    appendEdge(graph, 14, 13, randint(n, (2*n) - 1))
+    appendEdge(graph, 41, 1, randint(n, (2*n) - 1))
+    appendEdge(graph, 45, 20, randint(n, (2*n) - 1))
+    appendEdge(graph, 47, 45, randint(n, (2*n) - 1))
+    appendEdge(graph, 48, 47, randint(n, (2*n) - 1))
     return graph
+
+a = generateOwen(50)
+displayGraph(a)
