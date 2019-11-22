@@ -1,6 +1,7 @@
 from random import randint
 import networkx as nx
 import matplotlib.pyplot as plt
+import numpy as np
 
 labelLookup = {
     0: "A",
@@ -10,9 +11,17 @@ labelLookup = {
 # k is number of TAs
 # ratio is percentage of edges
 # returns dictionary header --> data -->
+def is_metric(G):
+    shortest = dict(nx.floyd_warshall(G))
+    for u, v, datadict in G.edges(data=True):
+        if abs(shortest[u][v] - datadict["weight"]) >= 0.00001:
+
+            return False
+    return True
+
 def generate(n, k, ratio):
     returnData = {}
-    returnData['header'] = [n, k, ratio, 2*ratio*n]
+    returnData['header'] = [n, k, ratio, 2*ratio*n * 10]
     data = []
     for i in range(n):
         dataRow = []
@@ -46,7 +55,7 @@ def displayInput(data):
 def displayRaw(data):
     print(data['data'])
 
-def displayGraph(data):
+def displayGraph(data, name = "simple_path.png"):
     d = data['data']
     G = nx.Graph()
     noEdge = data['header'][3]
@@ -59,8 +68,10 @@ def displayGraph(data):
                 G.add_edge("A" + str(i), "A" + str(j), weight=length)
 
     nx.draw(G)
-    plt.savefig("simple_path.png") # save as png
+    plt.savefig(name) # save as png
+    plt.clf()
     plt.show() # display
+
 
 def isConnected(data):
     graph1 = {
@@ -90,6 +101,25 @@ def appendEdge(data, v1, v2, weight):
     d[v1][v2] = weight
     d[v2][v1] = weight
 
+def addGraphs(graph1, graph2):
+    randEdgeX, randEdgeY = randint(graph1['header'][0], graph1['header'][0] * 2 - 1), randint(0, graph1['header'][0] - 1)
+    randLen = randint(graph1['header'][2], graph1['header'][2] * 2 - 1)
+    graph1['header'][0] += graph2['header'][0]
+    graph1['header'][1] += graph2['header'][1]
+    for i in range(len(graph1['data'])):
+        graph1['data'].append([graph1['header'][3]] * len(graph1['data'][i]) + graph2['data'][i])
+        graph1['data'][i] += [graph1['header'][3]] * len(graph2['data'][i])
+    graph1['data'][randEdgeX][randEdgeY], graph1['data'][randEdgeY][randEdgeX] = randLen, randLen
+    print(randEdgeX, randEdgeY, randLen)
+def makeMetricComplete(graph):
+    data = graph['data']
+    npy = np.array(data)
+    shortest = dict(nx.floyd_warshall(nx.from_numpy_matrix(npy)))
+    print(shortest)
+    for i in range(len(data)):
+        for j in range(i, len(data)):
+            if(data[i][j] == graph['header'][3]):
+                data[i][j], data[j][i] = shortest[i][j] - .0001, shortest[i][j] - .0001, 
 def generateOwen(n):
     graph = generate(50, 100, n)
     # index, index, weight
@@ -173,5 +203,19 @@ def generateOwen(n):
     appendEdge(graph, 48, 47, randint(n, (2*n) - 1))
     return graph
 
-a = generateOwen(50)
+a = generate(5, 2, 100)
+displayGraph(a, "graph1")
+print(is_metric(nx.from_numpy_matrix(np.array(a['data']))))
+b = generate(5, 2, 100)
+displayGraph(b, "graph2")
+print(np.array(a['data']))
+addGraphs(a, b)
+print(is_metric(nx.from_numpy_matrix(np.array(a['data']))))
 displayGraph(a)
+print(np.array(a['data']))
+makeMetricComplete(a)
+print(np.array(a['data']))
+displayGraph(a, "graph3")
+
+print(is_metric(nx.from_numpy_matrix(np.array(a['data']))))
+
