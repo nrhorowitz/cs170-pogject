@@ -1,0 +1,55 @@
+50
+3
+A0 A1 A2 A3 A4 A5 A6 A7 A8 A9 A10 A11 A12 A13 A14 A15 A16 A17 A18 A19 A20 A21 A22 A23 A24 A25 A26 A27 A28 A29 A30 A31 A32 A33 A34 A35 A36 A37 A38 A39 A40 A41 A42 A43 A44 A45 A46 A47 A48 A49
+A0 A3 A6 A6
+A0
+0 12 x x x x x x x x x x x x x x x x x x x x 16 x x x x x x x x x x x x x x x x x x x x x x x x x x x
+12 0 x x x x x x x x x x x x x x x x x x x x 11 x x x x x x x x x x x x x x x x x x 13 x x x x x x x x
+x x 0 19 x x x x x x x x x x x x x x x x x x 17 11 x x x x x x x x x x x x x x x x x x x x x x x x x x
+x x 19 0 x x x x x x 11 x x x x x x x x x x x 17 17 14 x x x x x x x x x x x 18 x x x x x x x x x x x x x
+x x x x 0 x x x x x x x x x x x x x x x x x x x x 16 13 x x x x x x x x x x x x x x x x x x x x x x x
+x x x x x 0 x x x x x x x x x x x x x x 12 x x x x x x 10 16 x x x x x x x x x x x x x x x x x x x x x
+x x x x x x 0 10 x x x x x x x x x x x x x x x x x x x x x x x x 12 x x x x x x x x x x x x x x x x x
+x x x x x x 10 0 x x x x x x x x x x x x x x x x x x x x x x x x x 16 x x x x x x x x x x x x x x x x
+x x x x x x x x 0 x 14 x x x x x x x x x x x x x x x x x x x x x x x 13 x x x x x x x x x x x x x x x
+x x x x x x x x x 0 16 x x x x x x x x x x x x x x x x x x x x x x x x 18 13 x x x x x 16 x x x x x x x
+x x x 11 x x x x 14 16 0 10 x x x x x x x x x x 11 x x x x x x x x x x x x x 17 15 x x x x x x x x x x x x
+x x x x x x x x x x 10 0 x x x x 12 x x x x x x x x x x x x x x x x x x x x x x 14 15 x 10 x x x x x x x
+x x x x x x x x x x x x 0 x x x x 17 x x x x x x x x x x x x x x x x x x x x x x 13 19 x x 17 x x x x x
+x x x x x x x x x x x x x 0 11 x x x x x x x x x x x x x x x x x x x x x x x x x x x x x 18 x x x x x
+x x x x x x x x x x x x x 11 0 x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x
+x x x x x x x x x x x x x x x 0 x x x x x x x x x x x x x x x x x x x x x x x x x x x 16 x x x x x x
+x x x x x x x x x x x 12 x x x x 0 x x x x 16 x x x x x x x x x x x x x x x x x x x x x x x x x x x x
+x x x x x x x x x x x x 17 x x x x 0 18 x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x 10
+x x x x x x x x x x x x x x x x x 18 0 x x x x x x x x x x x x x x x x x x x x x x x 19 x x x x x x 11
+x x x x x x x x x x x x x x x x x x x 0 16 x x x x x x x x x x x x x x x x x x 19 x x x x x x x x x x
+x x x x x 12 x x x x x x x x x x x x x 16 0 11 x x x x 17 x x x x x x x x x x x 13 14 x x x x x 19 x x x x
+x x x x x x x x x x x x x x x x 16 x x x 11 0 x x x x x x x x x x x x x x x 15 17 x x x x x x x x 18 x x
+16 11 17 17 x x x x x x 11 x x x x x x x x x x x 0 12 x x x x x x x x x x x x x 12 x x x x x x x x x x x x
+x x 11 17 x x x x x x x x x x x x x x x x x x 12 0 x x x x x x x x x x x x x x x x x x x x x x 18 x x x
+x x x 14 x x x x x x x x x x x x x x x x x x x x 0 12 x x x x 11 x x x x x x x x x x x x x x x x x x x
+x x x x 16 x x x x x x x x x x x x x x x x x x x 12 0 x x x x x x x x x x x x x x x x x x x x x x x x
+x x x x 13 x x x x x x x x x x x x x x x 17 x x x x x 0 13 x x x x x x x x x x x x x x x x x x x x x x
+x x x x x 10 x x x x x x x x x x x x x x x x x x x x 13 0 x x x x x x x x x x x x x x x x x x x x x x
+x x x x x 16 x x x x x x x x x x x x x x x x x x x x x x 0 15 x x x x x x x x x x x x x x x x x x x x
+x x x x x x x x x x x x x x x x x x x x x x x x x x x x 15 0 18 10 x x x x x x x x x x x x x x x x x x
+x x x x x x x x x x x x x x x x x x x x x x x x 11 x x x x 18 0 x x x x 13 x x x x x x x x x 18 x x x x
+x x x x x x x x x x x x x x x x x x x x x x x x x x x x x 10 x 0 15 x 16 18 x x x x x x x x x x x x x x
+x x x x x x 12 x x x x x x x x x x x x x x x x x x x x x x x x 15 0 x x x x x x x x x x 13 x x x x x x
+x x x x x x x 16 x x x x x x x x x x x x x x x x x x x x x x x x x 0 x x x x 17 x x x x x x x x x x x
+x x x x x x x x 13 x x x x x x x x x x x x x x x x x x x x x x 16 x x 0 14 x x x x x x x x x x x x x x
+x x x x x x x x x 18 x x x x x x x x x x x x x x x x x x x x 13 18 x x 14 0 x x x x x x 10 x x x x x x x
+x x x 18 x x x x x 13 17 x x x x x x x x x x x x x x x x x x x x x x x x x 0 x x x x x x x x x x x x x
+x x x x x x x x x x 15 x x x x x x x x x x 15 12 x x x x x x x x x x x x x x 0 x 14 x x x x x x x x 13 x
+x x x x x x x x x x x x x x x x x x x x 13 17 x x x x x x x x x x x 17 x x x x 0 x x x x x x x x x x x
+x x x x x x x x x x x 14 x x x x x x x 19 14 x x x x x x x x x x x x x x x x 14 x 0 x x x x x x x x x x
+x x x x x x x x x x x 15 13 x x x x x x x x x x x x x x x x x x x x x x x x x x x 0 x 19 12 x x x x x x
+x 13 x x x x x x x x x x 19 x x x x x x x x x x x x x x x x x x x x x x x x x x x x 0 x x x x x x x x
+x x x x x x x x x 16 x 10 x x x x x x 19 x x x x x x x x x x x x x x x x 10 x x x x 19 x 0 x x x 18 x x x
+x x x x x x x x x x x x x x x 16 x x x x x x x x x x x x x x x x 13 x x x x x x x 12 x x 0 x x x x x x
+x x x x x x x x x x x x 17 18 x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x 0 x x x x x
+x x x x x x x x x x x x x x x x x x x x 19 x x x x x x x x x 18 x x x x x x x x x x x x x x 0 x 10 x x
+x x x x x x x x x x x x x x x x x x x x x x x 18 x x x x x x x x x x x x x x x x x x 18 x x x 0 x x x
+x x x x x x x x x x x x x x x x x x x x x 18 x x x x x x x x x x x x x x x x x x x x x x x 10 x 0 13 x
+x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x 13 x x x x x x x x x 13 0 x
+x x x x x x x x x x x x x x x x x 10 11 x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x 0
