@@ -217,7 +217,7 @@ def writeOutput(graph):
     # label
     # for i in range(locations):
 
-# graph header 
+# graph header
 # homes list of indices
 def writeInput(graph, homes, source, name):
     f = open(name + ".in","w+")
@@ -250,21 +250,21 @@ def writeInput(graph, homes, source, name):
 
 
 
-a = generate(5, 2, 100)
-displayGraph(a, "graph1")
-print(is_metric(nx.from_numpy_matrix(np.array(a['data']))))
-b = generate(5, 2, 100)
-displayGraph(b, "graph2")
-print(np.array(a['data']))
-addGraphs(a, b)
-print(is_metric(nx.from_numpy_matrix(np.array(a['data']))))
-displayGraph(a)
-print(np.array(a['data']))
-makeMetricComplete(a)
-print(np.array(a['data']))
-displayGraph(a, "graph3")
-
-print(is_metric(nx.from_numpy_matrix(np.array(a['data']))))
+# a = generate(5, 2, 100)
+# displayGraph(a, "graph1")
+# print(is_metric(nx.from_numpy_matrix(np.array(a['data']))))
+# b = generate(5, 2, 100)
+# displayGraph(b, "graph2")
+# print(np.array(a['data']))
+# addGraphs(a, b)
+# print(is_metric(nx.from_numpy_matrix(np.array(a['data']))))
+# displayGraph(a)
+# print(np.array(a['data']))
+# makeMetricComplete(a)
+# print(np.array(a['data']))
+# displayGraph(a, "graph3")
+#
+# print(is_metric(nx.from_numpy_matrix(np.array(a['data']))))
 
 
 
@@ -371,13 +371,14 @@ def appendEdgeFlexible(data, v1, v2, weight):
 def addGraphsFlexible(graph1, graph2):
     randEdgeX, randEdgeY = randint(graph1['header'][0], graph1['header'][0] * 2 - 1), randint(0, graph1['header'][0] - 1)
     randLen = randint(graph1['header'][2], graph1['header'][2] * 2 - 1)
+    zlength = len(graph1['data'])
+    for i in range(zlength):
 
-
-    for i in range(len(graph2['data'])):
-        graph1['data'].append([0] * len(graph1['data'][i]) + graph2['data'][i])
-    for i in range(len(graph1['data'])):
-        graph1['data'][i] += [0] * len(graph2['data'])
-    graph1['data'][graph1['header'][0] - 1][graph1['header'][0]] = randint(10, 200)
+        graph1['data'].append([0] * zlength + graph2['data'][i])
+        graph1['data'][i] += [0] * len(graph2['data'][i])
+    connector = randint(10, 200)
+    graph1['data'][graph1['header'][0] - 1][graph1['header'][0]] = connector
+    graph1['data'][graph1['header'][0]][graph1['header'][0] - 1] = connector
     graph1['header'][0] += graph2['header'][0]
     graph1['header'][1] += graph2['header'][1]
     # graph1['data'][randEdgeX][randEdgeY], graph1['data'][randEdgeY][randEdgeX] = randLen, randLen
@@ -391,7 +392,7 @@ def makeMetricCompleteFlexible(graph):
             if(data[i][j] == graph['header'][3]):
                 data[i][j], data[j][i] = shortest[i][j] - .0001, shortest[i][j] - .0001,
 def generateOwenFlexible(n):
-    graph = generate(16, 100, n)
+    graph = generateFlexible(25, 100, n)
     # index, index, weight
     # appendEdge(graph, index, index, weight)
     # appendEdge(graph, index, index, weight)
@@ -401,8 +402,8 @@ def generateOwenFlexible(n):
     lookup = {
         ""
     }
-    # Drop off points 0 2 3, 4 4, 6 6, 5 8, 11 11, 12 12, 16 1 (7 dropoff points, 1 drops off 2)
-    # Optimal path: 0 -> 4 -> 6 -> 4 -> 5 -> 10 -> 11 -> 12 -> 10 -> 16
+    # Drop off points: 0 (2, 3), 4 (4), 6 (6), 5 (8), 11 (11), 12 (12), 15 (18), 24 (19), 20 (20), 21 (21), 22 (22)
+    # Optimal path: 0 -> 4 -> 6 -> 4 -> 5 -> 10 -> 11 -> 12 -> 10 -> 15 -> 24 -> 20 -> 21 -> 22 -> 24
     appendEdge(graph, 0, 2, 10)
     appendEdge(graph, 2, 3, 18)
     appendEdge(graph, 3, 0, 14)
@@ -421,6 +422,22 @@ def generateOwenFlexible(n):
     appendEdge(graph, 15, 14, 19)
     appendEdge(graph, 14, 13, 60)
     appendEdge(graph, 13, 1, 80)
+
+    appendEdge(graph, 1, 16, 69)
+    appendEdge(graph, 16, 17, 420)
+    appendEdge(graph, 17, 18, 69420)
+    appendEdge(graph, 24, 15, 69)
+    appendEdge(graph, 24, 19, 12)
+    appendEdge(graph, 24, 20, 9)
+    appendEdge(graph, 24, 21, 13)
+    appendEdge(graph, 24, 22, 10)
+    appendEdge(graph, 24, 23, 11)
+    appendEdge(graph, 19, 20, 20)
+    appendEdge(graph, 20, 21, 12)
+    appendEdge(graph, 21, 22, 15)
+    appendEdge(graph, 22, 23, 18)
+    appendEdge(graph, 23, 19, 17)
+
     return graph
 
 # a = generate(5, 2, 100)
@@ -438,24 +455,48 @@ def generateOwenFlexible(n):
 # displayGraph(a, "graph3")
 #
 # print(is_metric(nx.from_numpy_matrix(np.array(a['data']))))
-def flex():
-    a = generateOwen(10)
-    print(is_metric(nx.from_numpy_matrix(np.array(a['data']))))
-    # displayGraph(a, 'Owen')
+def add25toLst(lst):
+    newLst = []
+    for i in range(len(lst)):
+        newLst.append(lst[i] + 25)
+    return newLst
+a = generateOwenFlexible(10)
+homes = [2,3,4,6,8,11,12,18,19,20,21,22]
+homes2 = add25toLst(homes)
+homes3 = add25toLst(homes2)
+homes4 = add25toLst(homes3)
+homes5 = add25toLst(homes4)
+homes6 = add25toLst(homes5)
+homes7 = add25toLst(homes6)
+homes8 = add25toLst(homes7)
+homes += homes2 + homes3 + homes4 + homes5 + homes6 + homes7 + homes8
+print(homes)
 
-    addGraphs(a, generateOwen(10))
-    for i in a['data']:
-        print(len(i))
-    print(is_metric(nx.from_numpy_matrix(np.array(a['data']))))
-    addGraphs(a, generateOwen(10))
-    addGraphs(a, generateOwen(10))
-    addGraphs(a, generateOwen(10))
-    addGraphs(a, generateOwen(10))
-    addGraphs(a, generateOwen(10))
+# 0 (2, 3), 4 (4), 6 (6), 5 (8), 11 (11), 12 (12), 15 (18), 24 (19, 23), 20 (20), 21 (21), 22 (22)
+addGraphsFlexible(a, generateOwenFlexible(10))
+# for i in a['data']:
+#     print(len(i))
+addGraphsFlexible(a, a)
+addGraphsFlexible(a, a)
+a['data'][0][199] = 200
+a['data'][199][0] = 200
+writeInput(a, homes, 0, "200")
+print(np.array(a['data']))
+displayGraphFlexible(a, 'Owen2')
 
-    appendEdge(a, 0, a['header'][0] - 1, randint(2, 2000))
-    # for x in range(len(a)):
-    #     for y in range(len(a)):
-    #         if(a['data'][x][y] == a['header'][3]):
-    #             b.remove_edge(x,y)
-    # print(b.edges.iter())
+#
+for i in a['data']:
+    print(len(i))
+# print(is_metric(nx.from_numpy_matrix(np.array(a['data']))))
+# addGraphs(a, generateOwen(10))
+# addGraphs(a, generateOwen(10))
+# addGraphs(a, generateOwen(10))
+# addGraphs(a, generateOwen(10))
+# addGraphs(a, generateOwen(10))
+#
+# appendEdge(a, 0, a['header'][0] - 1, randint(2, 2000))
+# for x in range(len(a)):
+#     for y in range(len(a)):
+#         if(a['data'][x][y] == a['header'][3]):
+#             b.remove_edge(x,y)
+# print(b.edges.iter())
