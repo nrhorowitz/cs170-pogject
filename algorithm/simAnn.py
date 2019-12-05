@@ -2,23 +2,27 @@ from random import randint
 #an object represents each vertex in original graph
 class Point:
     """A simple example class"""
-    def __init__(self, label, adjacentVertices):
+    def __init__(self, label, adjacentVertices, rawLabel):
+        self.rawLabel = rawLabel
         self.label = label
         self.adjacentVertices = adjacentVertices
 #an object representing a point in the path
 class pathPoint:
     def __init__(point, dropoffs):
+        self.rawLabel = rawLabel
         #int labeling graph vertices from 0 to |V| - 1
         self.label = point.label
-        #list of vertices that this vertex has an edge to in the original graph
+        #list of vertices that this vertex has an edge to in the original graph LIST OF LABELS
         self.adjacentVertices = point.adjacentVertices
-        #list of destinations for people dropped off here
+        #list of destinations for people dropped off here [cory, dwinelle] LIST OF LABELS
         self.dropOffs = dropOffs
 
 #path is list of pathPoints in order of the path. points is a list of points that represent the graph
-def simulatedAnnealing(path, points, iters):
+def cost():
+    return 0
+def simulatedAnnealing(path, points, iters, currDropOffs):
     choice = randint(0, 10)
-    #add a random vertex
+    #add a random vertex before place
     for _ in range(iters):
         currPath = path
         if (choice >= 7):
@@ -29,7 +33,7 @@ def simulatedAnnealing(path, points, iters):
                 if (place == len(path - 1) or path[place + 1].label in pointToAdd.adjacentVertices):
                     path = path[0:place] + [pointToAdd] + path[place:]
         #remove a vertex
-        if (choice >= 4):
+        if (choice >= 4 and len(path) >= 3):
             place = randint(1, len(path) - 2)
             tempPoint = path[place]
             if (path[place - 1].label in path[place + 1].adjacentVertices):
@@ -41,4 +45,3 @@ def simulatedAnnealing(path, points, iters):
                         else:
                             path[place - 1].dropoffs.append(i)
                 path = path[:place] + path[place + 1:]
-        else:
