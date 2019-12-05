@@ -42,12 +42,3 @@ def simulatedAnnealing(path, points, iters):
                             path[place - 1].dropoffs.append(i)
                 path = path[:place] + path[place + 1:]
         else:
-
-
-
-
-
-
-
-
-        
