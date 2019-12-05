@@ -30,3 +30,6 @@ def remove_vertex(input, path):
 # Dropoff point 
 def change_dropoff(input, path):
     return 0
+def class point {
+    
+}
