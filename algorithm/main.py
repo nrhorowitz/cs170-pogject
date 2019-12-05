@@ -6,8 +6,22 @@ def read_input(file_name):
     contents = f.readlines()
     data = []
     for i in range(5, 5 + int(contents[0])):
-        data.append(contents[i])
-    # print(data)
+        d = contents[i].split(" ")
+        row = []
+        for val in d:
+            if val == 'x':
+                row.append(MAX_VALUE)
+            elif '\n' in val:
+                v = val[:len(val)-1]
+                if v == 'x':
+                    row.append(MAX_VALUE)
+                else:
+                    row.append(int(v))
+            else:
+                row.append(int(val))
+        data.append(row)
+    print(data)
+    
     return 0
 
 # Given table, return shortest path and distance between any two vertices
