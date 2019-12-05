@@ -12,7 +12,7 @@ def pointToIndices(path_points):
         dropoff_points[point.label] = home_list
     return car_cycle, dropoff_points
 
-
+# dropOff points example
 # {1: [2]}
 # locations = ['hi', 'bye', 'nathan']
 # homes = ['nathan']
