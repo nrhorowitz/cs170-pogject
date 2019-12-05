@@ -10,15 +10,16 @@ class pathPoint:
     def __init__(point, dropoffs):
         #int labeling graph vertices from 0 to |V| - 1
         self.label = point.label
-        #list of vertices that this vertex has an edge to in the original graph
+        #list of vertices that this vertex has an edge to in the original graph LIST OF LABELS
         self.adjacentVertices = point.adjacentVertices
-        #list of destinations for people dropped off here
+        #list of destinations for people dropped off here [cory, dwinelle] LIST OF LABELS
         self.dropOffs = dropOffs
 
 #path is list of pathPoints in order of the path. points is a list of points that represent the graph
+[soda]
 def simulatedAnnealing(path, points, iters):
     choice = randint(0, 10)
-    #add a random vertex
+    #add a random vertex before place
     for _ in range(iters):
         currPath = path
         if (choice >= 7):
@@ -42,6 +43,9 @@ def simulatedAnnealing(path, points, iters):
                             path[place - 1].dropoffs.append(i)
                 path = path[:place] + path[place + 1:]
         else:
+
+
+
 
 
 
