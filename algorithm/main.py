@@ -29,4 +29,5 @@ def remove_vertex(input, path):
 
 # Dropoff point 
 def change_dropoff(input, path):
+    c = 3
     return 0
