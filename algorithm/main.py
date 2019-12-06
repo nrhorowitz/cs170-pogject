@@ -56,9 +56,11 @@ def run_solver(listOfPoints, globalLookup, defaultDict, homeIndex):
     # path = generateStartingPointPaths(globalLookup, homeIndex)
     print("===BEFORE===")
     print(path)
-    simulatedAnnealing(path, listOfPoints, defaultDict, globalLookup)
+    path = simulatedAnnealing(path, listOfPoints, defaultDict, globalLookup)
     print("===AFTER===")
-    print(path)
+    for i in path:
+        print(i.label)
+    print(globalLookup)
     return 0
 
 # Given list of path points, generate output file with name
@@ -76,5 +78,5 @@ def sweep_inputs(range=False):
     l, g, d, h = read_input('50.in')
     run_solver(l, g, d, h)
 
-
     return 0
+sweep_inputs()

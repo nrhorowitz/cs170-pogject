@@ -8,11 +8,13 @@ def costOfPoints(path_points, adjacency_matrix):
     for point in path_points:
         car_cycle.append(point.label)
         homes_list = []
-        for index in point.dropOffs:
-            home_list.append(index)
-        dropoff_mapping[point.label] = home_list
-
-    G = adjacency_matrix_to_graph(adjacency_matrix)
+        for index in point.dropoffs:
+            homes_list.append(index)
+        if point.label not in dropoff_mapping:
+            if homes_list:
+                dropoff_mapping[point.label] = homes_list
+    
+    G = adjacency_matrix_to_graph(adjacency_matrix)[0]
     return cost_of_solution(G, car_cycle, dropoff_mapping)
 
 # dropOff points example
