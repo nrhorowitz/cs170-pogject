@@ -52,10 +52,10 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix, avgEdgeWeigh
     
     print("Soda Sol:", currCost)
     while(temp > stopTemp):
-        print(currCost)
-        for i in path:
-            print(i.label, end = " ")
-        print()
+        # print(currCost)
+        # for i in path:
+        #     print(i.label, end = " ")
+        # print()
         choice = randint(0, 100)
         currPath = path[:]
         currdropoffsDict = deepcopy(currdropoffs)
@@ -142,7 +142,7 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix, avgEdgeWeigh
                             path[place - 1].dropoffs.add(i)
                             currdropoffs[i] -=1
                         path[place].dropoffs = set()
-        elif (choice > 25):
+        elif (choice > 26):
             currdropoffs = deepcopy(optimumdropoff)
             currCost = optimumCost
             path = deepcopy(optimumPath)
@@ -211,7 +211,7 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix, avgEdgeWeigh
             if minChange < currCost - newCost:
                 minChange = currCost - newCost
             if rand < math.exp(-(newCost - currCost)/temp):
-                print("temps", "Delta:", (newCost - currCost), "Temperature:", (temp), "rand:", rand, "prob:", math.exp(-float(newCost - currCost)/(temp)))
+                # print("temps", "Delta:", (newCost - currCost), "Temperature:", (temp), "rand:", rand, "prob:", math.exp(-float(newCost - currCost)/(temp)))
                 # print("taken")
                 currCost = newCost
                 # for i in range(len(path)):
@@ -244,7 +244,7 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix, avgEdgeWeigh
     for i in optimumPath:
         print(i.label)
     cost(optimumPath, adjacencyMatrix, True)
-    print(optimumCost)
+    print("final Solution Cost:", optimumCost)
     for i in range(len(optimumPath)):
         print(list(optimumPath[i].dropoffs), i)
     return optimumPath
