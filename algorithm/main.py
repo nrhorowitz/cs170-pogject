@@ -15,6 +15,8 @@ def read_input(index, size):
     f = open("../inputs/" + file_name, "r")
     contents = f.readlines()
     labelLookup = contents[2].split(" ")
+    if len(labelLookup[len(labelLookup) - 1]) == 0:
+        labelLookup.pop()
     labelLookup[len(labelLookup) - 1] = labelLookup[len(labelLookup) - 1][:len(labelLookup[len(labelLookup) - 1]) - 1]
     listOfPoints = []
     globalLookup = []
@@ -44,11 +46,17 @@ def read_input(index, size):
     labelToIndex = {}
     for i in range(len(labelLookup)):
         labelToIndex[labelLookup[i]] = i
-    start = contents[4][:len(contents[4])-1]
+    start = 0
+    if len(contents[4].split(" ")) > 1:
+        start = contents[4].split(" ")[0]
+    else:
+        start = contents[4][:len(contents[4])-1]
     homeIndex = labelToIndex[start]
     defaultDict = {}
     for val in contents[3].split(' '):
-        if '\n' in val:
+        if len(val) == 0:
+            a = 1
+        elif '\n' in val:
             if val != '\n':
                 newVal = val[:len(val)-1]
                 defaultDict[labelToIndex[newVal]] = 0 # homeIndex
