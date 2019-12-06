@@ -4,6 +4,7 @@ a ta home index to the pathPoint. so if someone living in index 0, and was dropp
 the mapping 0:3
 it then changes path to be the calculated optimum. No return
 adjacencyMatrix is an adjacency matrix of the graph 
+#avg edge weight is the averageedgeweight of the graph
 """
 from random import randint
 import random
@@ -37,15 +38,18 @@ class pathPoint:
 def cost(path, adjacencyMatrix):
     return costOfPoints(path, adjacencyMatrix)
 #currdropoffs is a dictionary that is dropoff label to index in path
-def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix):
+def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix, avgEdgeWeight = 0):
     
     
     coolingRate = .99
     stopTemp = 3
     temp = 448
     worstChange, minChange = 0, float("-inf")
-    
     currCost = cost(path, adjacencyMatrix)
+    optimumdropoff = deepcopy(currdropoffs)
+    optimumCost =  currCost
+    optimumPath = deepcopy(path)
+    
     print(currCost)
     while(temp > stopTemp):
         print(currCost)
@@ -54,6 +58,7 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix):
         choice = randint(0, 10)
         currPath = path[:]
         currdropoffsDict = deepcopy(currdropoffs)
+        
         #add a random vertex before place
         if (choice >= 5):
             # print("adding")
@@ -86,7 +91,7 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix):
                     path = path[0:place] + [pointToAdd] + [prevCopy] + path[place:]
                     # print("\n")
         #remove a vertex
-        elif (choice >= 3 and len(path) >= 3):
+        elif (choice > 3 and len(path) >= 3):
             
            
             place = randint(1, len(path) - 2)
@@ -138,11 +143,16 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix):
                             path[place - 1].dropoffs.add(i)
                             currdropoffs[i] -=1
                         path[place].dropoffs = set()
+        elif (choice > 2):
+            currdropoffs = deepCopy(optimumdropoff)
+            currCost = optimumCost
+            path = deepCopy(optimumPath)
         else:
             # print("moving DropOff\n")
             randdropoff = list(currdropoffs.keys())[randint(0, len(currdropoffs) - 1)]
             destination = randint(0, len(path) - 2)
             place = currdropoffs[randdropoff]
+            print(place, currdropoffs)
             currPath[place] = pathPoint(currPath[place], [], True)
             currPath[destination] = pathPoint(currPath[destination], [], True)
             path[place].dropoffs.remove(randdropoff)
@@ -180,7 +190,11 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix):
             #         # for i in range(len(path)):
             #         #     print(list(path[i].dropoffs), i)
         newCost = cost(path, adjacencyMatrix)
-        if (newCost <= currCost):
+        if newCost < optimumCost:
+            optimumdropoff = deepcopy(currdropoffs)
+            optimumCost =  newCost
+            optimumPath = deepcopy(path)
+        elif (newCost <= currCost):
             currCost = newCost
             # print("taken")
         else:
@@ -201,7 +215,7 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix):
                 path = currPath
                 currdropoffs = currdropoffsDict
         temp = temp * coolingRate
-        sumError = 0
+        # sumError = 0
         # for i in path:
         #     sumError += len(i.dropoffs)
         #     if(sumError >4):

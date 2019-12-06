@@ -95,11 +95,11 @@ def sweep_inputs(r=False):
     # run_solver on list of pathpoints ---> the correct list of pathpoints
     # generate_output correct list of pathpoint ---> .out
     # for i in range(1, 367):
-    for i in range(1, 10):
-        l, g, d, h, labelLookup = read_input(i, r)
-        # path = run_solver(l, g, d, h, True)
-        path = run_solver(l, g, d, h, False)
-        # generate_output(path, i, 50, labelLookup)
+    #for i in range(1, 10):
+    l, g, d, h, labelLookup = read_input(3, r)
+    path = run_solver(l, g, d, h, True)
+    #path = run_solver(l, g, d, h, False)
+    # generate_output(path, i, 50, labelLookup)
     return 0
     
 sweep_inputs(50)
