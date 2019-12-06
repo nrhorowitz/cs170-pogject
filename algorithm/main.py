@@ -26,9 +26,10 @@ def read_input(index, size):
         for j in range(0, int(contents[0])):
             if 'x' not in d[j]:
                 if '\n' in d[j]:
-                    globalLookupRow.append(float(d[j][:len(d[j])-1]))
-                    avgEdge += float(d[j][:len(d[j])-1])
-                    numOfEdges += 1
+                    if d[j] != '\n':
+                        globalLookupRow.append(float(d[j][:len(d[j])-1]))
+                        avgEdge += float(d[j][:len(d[j])-1])
+                        numOfEdges += 1
                 else:
                     globalLookupRow.append(float(d[j]))
                     avgEdge += float(d[j])
@@ -66,7 +67,7 @@ def run_solver(listOfPoints, globalLookup, defaultDict, homeIndex, avgEdge, star
         end = pathPoint(listOfPoints[homeIndex], set([]))
         path = [start, end]
     else:
-        path = compute_paths(globalLookup, defaultDict, homeIndex)
+        path = compute_paths(globalLookup, listOfPoints, homeIndex)
     path = simulatedAnnealing(path, listOfPoints, defaultDict, globalLookup, avgEdge)
     return path
 
@@ -103,20 +104,12 @@ def sweep_inputs(r=False):
     # run_solver on list of pathpoints ---> the correct list of pathpoints
     # generate_output correct list of pathpoint ---> .out
     # for i in range(1, 367):
-<<<<<<< HEAD
-    #for i in range(1, 10):
-    l, g, d, h, labelLookup = read_input(3, r)
-    path = run_solver(l, g, d, h, True)
-    #path = run_solver(l, g, d, h, False)
-    # generate_output(path, i, 50, labelLookup)
-=======
     for i in range(3, 10):
         print("==============" + str(i))
         l, g, d, h, labelLookup, avgEdge = read_input(i, r)
         path = run_solver(l, g, d, h, avgEdge, True)
-        #path = run_solver(l, g, d, h, avgEdge, False)
+        # path = run_solver(l, g, d, h, avgEdge, False)
         # generate_output(path, i, 50, labelLookup)
->>>>>>> b3c0808313ee7c54a98b92d173a20114c34d5ab0
     return 0
     
 sweep_inputs(50)
