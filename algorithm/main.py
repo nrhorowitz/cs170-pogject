@@ -53,7 +53,7 @@ def read_input(index, size):
         else:
             defaultDict[labelToIndex[val]] = 0 # homeIndex
     avgEdge = avgEdge / numOfEdges
-    # print(avgEdge)
+    print(avgEdge)
     return listOfPoints, globalLookup, defaultDict, homeIndex, labelLookup, avgEdge
 
 def run_solver(listOfPoints, globalLookup, defaultDict, homeIndex, avgEdge, starting):
