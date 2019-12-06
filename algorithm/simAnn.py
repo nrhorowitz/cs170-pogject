@@ -40,24 +40,29 @@ def cost(path, adjacencyMatrix):
 def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix):
     
     
-    coolingRate = .99
+    coolingRate = .999
     stopTemp = 1
-    temp = 200
+    temp = 850
+    worstChange, minChange = 0, float("-inf")
     
     currCost = cost(path, adjacencyMatrix)
     print(currCost)
     while(temp > stopTemp):
+        print(currCost)
         choice = randint(0, 10)
         currPath = path[:]
         currdropoffsDict = deepcopy(currdropoffs)
         #add a random vertex before place
-        if (choice >= 3):
+        if (choice >= 4):
             # print("adding")
-            pointToAdd = points[randint(0, len(points) - 1)]
-            pointToAdd = pathPoint(pointToAdd, [])
             place = randint(1, len(path) - 1)
+            
+            pointToAdd = points[random.choice(points[place - 1].adjacentVertices)]
+            
+            pointToAdd = pathPoint(pointToAdd, [])
             chance = randint(0, 10)
-            if (chance > 2):
+            # print(path[place - 1].adjacentVertices, random.choice(path[place - 1].adjacentVertices), path[place - 1].adjacentVertices, place, chance, pointToAdd.adjacentVertices)
+            if (chance > 4):
                 if (path[place - 1].label in pointToAdd.adjacentVertices and path[place].label in pointToAdd.adjacentVertices):
                     # print(pointToAdd.label, place)
                     # print("adding vertex\n")
@@ -65,6 +70,10 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix):
                         if currdropoffs[i] >= place:
                             currdropoffs[i] +=1
                     path = path[0:place] + [pointToAdd] + path[place:]
+                    # print("updated")
+                    # for i in path:
+                    #     print(i.label, sep = '')
+                    
                    
             else:
                 if (path[place - 1].label in pointToAdd.adjacentVertices and path[place - 1].label != path[place].label ):
@@ -75,13 +84,14 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix):
                     path = path[0:place] + [pointToAdd] + [prevCopy] + path[place:]
                     # print("\n")
         #remove a vertex
-        elif (choice >= 2 and len(path) >= 3):
-            # print("removing vertex\n")
+        elif (choice >= 3 and len(path) >= 3):
+            
            
             place = randint(1, len(path) - 2)
             numRemove = randint(1, len(path) - place - 1)
-            tempPoint = path[place]
-            if (path[place - 1].label in path[place + numRemove].adjacentVertices):
+            # print(place, numRemove, "removedata")
+            if (path[place - 1].label in path[place + numRemove].adjacentVertices or path[place - 1].label == path[place + numRemove].label):
+                # print("removing vertex\n")
                 currPath[place] = pathPoint(currPath[place], [], True)
                 currPath[place + numRemove] = pathPoint(currPath[place + numRemove], [], True)
                 currPath[place - 1] = pathPoint(currPath[place - 1], [], True)
@@ -91,18 +101,38 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix):
                 if(lostdropoffs):
                     for i in lostdropoffs:
                         destination = randint(0,1)
-                        if destination:
+                        # print(destination , place+numRemove != len(path) - 1)
+                        if destination and place+numRemove != len(path) - 1:
                             path[place + numRemove].dropoffs.add(i)
                             currdropoffs[i] = place + numRemove
-                            # print(i, "was moved to",place + 1)
+                            # print(i, "was moved to",place + + numRemove, path[place].dropoffs)
                         else:
                             path[place - 1].dropoffs.add(i)
                             currdropoffs[i] = place - 1
-                            # print(i, place - 1)
+                            # print(i, "was moved to", place - 1)
                 for i in currdropoffs.keys():
                         if currdropoffs[i] >= place + numRemove:
                             currdropoffs[i] -=numRemove
                 path = path[:place] + path[place + numRemove:]
+                #merging two points into one if they are adjacent and equal
+                place -= 1
+                if (path[place].label == path[place + 1].label and len(path) > 2):
+                    # print("starting merge")
+                    currPath[place] = pathPoint(currPath[place], [], True)
+                    currPath[place + 1] = pathPoint(currPath[place + 1], [], True)
+                    for i in path[place + 1].dropoffs:
+                        path[place].dropoffs.add(i)
+                        currdropoffs[i] -=1
+                    for i in currdropoffs.keys():
+                        if currdropoffs[i] > place:
+                            currdropoffs[i] -=1
+                    path = path[:place + 1] + path[place + 2:]
+                    #if they merged onto last point
+                    if (place == len(path) - 1):
+                        for i in path[place].dropoffs:
+                            path[place - 1].dropoffs.add(i)
+                            currdropoffs[i] -=1
+                        path[place].dropoffs = set()
         else:
             # print("moving DropOff\n")
             randdropoff = list(currdropoffs.keys())[randint(0, len(currdropoffs) - 1)]
@@ -139,20 +169,28 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix):
         else:
             rand = random.random()
             # print(currCost, newCost, "costs")
-            # print("temps", (newCost - currCost), (temp), math.exp(-float(newCost - currCost)/(temp)), temp)
+            if (worstChange > currCost - newCost):
+                worstChange = currCost - newCost
+            if minChange < currCost - newCost:
+                minChange = currCost - newCost
             if rand < math.exp(-(newCost - currCost)/temp):
-                # print("taken")
+                print("temps", (newCost - currCost), (temp), rand, math.exp(-float(newCost - currCost)/(temp)))
+                print("taken")
                 currCost = newCost
                 # for i in range(len(path)):
-                    # print(list(path[i].dropoffs), i)
-            # else:
+                #     print(list(path[i].dropoffs), i)
+            else:
                 # print("not")
                 path = currPath
                 currdropoffs = currdropoffsDict
         temp = temp * coolingRate
+        
     # for i in path:
         # print(i.label)
     print(currCost)
+    for i in range(len(path)):
+        print(list(path[i].dropoffs), i)
+    print(minChange, worstChange)
     return path
 
     

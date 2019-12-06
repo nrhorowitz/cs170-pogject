@@ -60,7 +60,6 @@ def run_solver(listOfPoints, globalLookup, defaultDict, homeIndex):
     print("===AFTER===")
     for i in path:
         print(i.label)
-    print(globalLookup)
     return 0
 
 # Given list of path points, generate output file with name
