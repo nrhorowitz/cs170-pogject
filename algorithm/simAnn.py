@@ -19,7 +19,7 @@ class pathPoint:
         #list of destinations for people dropped off here [cory, dwinelle] LIST OF LABELS
         self.dropOffs = dropOffs
 
-#path is list of pathPoints in order of the path. points is a list of points that represent the graph 
+#path is list of pathPoints in order of the path. points is a list of points that represent the graph
 def cost():
     return 0
 #currDropoffs is a dictionary that is dropOff label to index in path
