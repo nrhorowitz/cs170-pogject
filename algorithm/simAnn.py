@@ -6,7 +6,7 @@ adjacencyMatrix is an adjacency matrix of the graph
 """
 from random import randint
 import random
-from pointToIndices import costOfPoints
+from pointsToIndices import costOfPoints
 #an object represents each vertex in original graph
 class Point:
     """A simple example class"""
@@ -81,7 +81,7 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix):
                     path[place + 1].dropoffs.append(i)
                     currdropoffs[randdropoff] = place + 1
             else:
-                if (currdropoffs[randdropoff] != 0:
+                if (currdropoffs[randdropoff] != 0):
                     currPath[place - 1] = pathPoint(currPath[place - 1], [], True)
                     path[place - 1].dropoffs.append(i)
                     currdropoffs[randdropoff] = place - 1
