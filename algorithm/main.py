@@ -42,15 +42,17 @@ def read_input(index, size):
     for val in contents[3].split(' '):
         if '\n' in val:
             newVal = val[:len(val)-1]
-            defaultDict[labelToIndex[newVal]] = homeIndex
+            defaultDict[labelToIndex[newVal]] = 0 # homeIndex
         else:
-            defaultDict[labelToIndex[val]] = homeIndex
+            defaultDict[labelToIndex[val]] = 0 # homeIndex
     return listOfPoints, globalLookup, defaultDict, homeIndex, labelLookup
 
 def run_solver(listOfPoints, globalLookup, defaultDict, homeIndex, starting):
     # create default (empty pathpoints)
     path = []
     if (starting):
+        print("DEF")
+        print(defaultDict)
         homes = []
         for i in defaultDict.keys():
             homes.append(i)
@@ -58,7 +60,7 @@ def run_solver(listOfPoints, globalLookup, defaultDict, homeIndex, starting):
         end = pathPoint(listOfPoints[homeIndex], set([]))
         path = [start, end]
     else:
-        path = compute_paths(listOfPoints, defaultDict, homeIndex)
+        path = compute_paths(globalLookup, defaultDict, homeIndex)
     path = simulatedAnnealing(path, listOfPoints, defaultDict, globalLookup)
     return path
 
@@ -95,10 +97,11 @@ def sweep_inputs(r=False):
     # run_solver on list of pathpoints ---> the correct list of pathpoints
     # generate_output correct list of pathpoint ---> .out
     # for i in range(1, 367):
-    for i in range(1, 10):
+    for i in range(3, 10):
+        print("==============" + str(i))
         l, g, d, h, labelLookup = read_input(i, r)
-        # path = run_solver(l, g, d, h, True)
-        path = run_solver(l, g, d, h, False)
+        path = run_solver(l, g, d, h, True)
+        # path = run_solver(l, g, d, h, False)
         # generate_output(path, i, 50, labelLookup)
     return 0
     

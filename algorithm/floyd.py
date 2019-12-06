@@ -25,5 +25,8 @@ def floyd_warshall(n, edge):
                   % (i + 1, j + 1, dist[i][j], 
                      ' → '.join(str(p + 1) for p in path)))
  
-def compute_paths(listOfPoints, defaultDict, homeIndex):
+def compute_paths(globalLookup, defaultDict, homeIndex):
+    print(globalLookup)
+    print(defaultDict)
+
     floyd_warshall(4, [[1, 3, -2], [2, 1, 4], [2, 3, 3], [3, 4, 2], [4, 2, -1]])
