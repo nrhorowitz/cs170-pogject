@@ -52,7 +52,7 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix):
             if (path[place - 1].label in pointToAdd.adjacentVertices and path[place].label in pointToAdd.adjacentVertices):
                 path = path[0:place] + [pointToAdd] + path[place:]
         #remove a vertex
-        else if (choice >= 6 and len(path) >= 3):
+        elif (choice >= 6 and len(path) >= 3):
             place = randint(1, len(path) - 2)
             tempPoint = path[place]
             if (path[place - 1].label in path[place + 1].adjacentVertices):
