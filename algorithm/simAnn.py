@@ -141,7 +141,11 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix, avgEdgeWeigh
                             path[place - 1].dropoffs.add(i)
                             currdropoffs[i] -=1
                         path[place].dropoffs = set()
+<<<<<<< HEAD
         elif (choice > 25):
+=======
+        elif (choice > 2):
+>>>>>>> 9bf7e7a3118303163a5e31d7f67d115a5609dd97
             currdropoffs = deepcopy(optimumdropoff)
             currCost = optimumCost
             path = deepcopy(optimumPath)
