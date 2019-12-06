@@ -25,7 +25,7 @@ def read_input(file_name):
                     globalLookupRow.append(int(d[j]))
                 adjacentList.append(j)
             else:
-                globalLookupRow.append(MAX_VALUE)
+                globalLookupRow.append('x')
         globalLookup.append(globalLookupRow)
         p = Point(i - 5, adjacentList, labelLookup[i - 5])
         listOfPoints.append(p)

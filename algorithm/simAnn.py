@@ -1,6 +1,6 @@
 from random import randint
 import random
-from math import e
+from pointToIndices import costOfPoints
 #an object represents each vertex in original graph
 class Point:
     """A simple example class"""
@@ -10,26 +10,32 @@ class Point:
         self.adjacentVertices = adjacentVertices
 #an object representing a point in the path
 class pathPoint:
-    def __init__(point, dropoffs):
-        self.rawLabel = rawLabel
-        #int labeling graph vertices from 0 to |V| - 1
-        self.label = point.label
-        #list of vertices that this vertex has an edge to in the original graph LIST OF LABELS
-        self.adjacentVertices = point.adjacentVertices
-        #list of destinations for people dropped off here [cory, dwinelle] LIST OF LABELS
-        self.dropOffs = dropOffs
+    def __init__(self, point, dropoffs, copyPoint=False):
+        if copyPoint:
+            self.rawLabel = copyPoint.rawLabel
+            self.label = copyPoint.label
+            self.adjacentVertices = copyPoint.adjacentVertices
+            self.dropoffs = copyPoint.dropoffs
+        else:
+            self.rawLabel = point.rawLabel
+            #int labeling graph vertices from 0 to |V| - 1
+            self.label = point.label
+            #list of vertices that this vertex has an edge to in the original graph LIST OF LABELS
+            self.adjacentVertices = point.adjacentVertices
+            #list of destinations for people dropped off here [cory, dwinelle] LIST OF LABELS
+            self.dropoffs = dropoffs
 
 #path is list of pathPoints in order of the path. points is a list of points that represent the graph
-def cost():
-    return 0
-#currDropoffs is a dictionary that is dropOff label to index in path
-def simulatedAnnealing(path, points, iters, currDropOffs):
+def cost(path, adjacencyMatrix):
+    return costOfPoints(path, adjacencyMatrix)
+#currdropoffs is a dictionary that is dropoff label to index in path
+def simulatedAnnealing(path, points, iters, currdropoffs, adjacencyMatrix):
     choice = randint(0, 10)
     #add a random vertex before place
     coolingRate = .9
     stopTemp = .0001
     temp = 1
-    currCost = cost(path)
+    currCost = cost(path, adjacencyMatrix)
     while(temp > stopTemp):
         currPath = path[:]
         if (choice >= 8):
@@ -44,28 +50,36 @@ def simulatedAnnealing(path, points, iters, currDropOffs):
             place = randint(1, len(path) - 2)
             tempPoint = path[place]
             if (path[place - 1].label in path[place + 1].adjacentVertices):
-                if(tempPoint.dropOffs):
-                    for i in tempPoint.dropOffs:
+                currPath[place] = pathPoint(currPath[place], [], True)
+                currPath[place + 1] = pathPoint(currPath[place + 1], [], True)
+                currPath[place - 1] = pathPoint(currPath[place - 1], [], True)
+                if(tempPoint.dropoffs):
+                    for i in tempPoint.dropoffs:
                         destination = randInt[0,1]
                         if destination:
+
                             path[place + 1].dropoffs.append(i)
-                            currDropOffs[i] = place + 1
+                            currdropoffs[i] = place + 1
                         else:
                             path[place - 1].dropoffs.append(i)
-                            currDropOffs[i] = place - 1
+                            currdropoffs[i] = place - 1
                 path = path[:place] + path[place + 1:]
         else:
-            randDropOff = currDropOffs.keys()[randint(0, len(currDropoffs) - 1)]
+            randdropoff = currdropoffs.keys()[randint(0, len(currdropoffs) - 1)]
             destination = randInt[0,1]
+            place = currdropoffs[randdropoff]
+            currPath[place] = pathPoint(currPath[place], [], True)
             if destination:
-                if (currDropOffs[randDropOff] != len(path) - 1):
-                    path[currDropOffs[randDropOff] + 1].dropoffs.append(i)
-                    currDropOffs[randDropOff] = currDropOffs[randDropOff] + 1
+                if (place != len(path) - 1):
+                    currPath[place + 1] = pathPoint(currPath[place + 1], [], True)
+                    path[place + 1].dropoffs.append(i)
+                    currdropoffs[randdropoff] = place + 1
             else:
-                if (currDropOffs[randDropOff] != 0:
-                    path[currDropOffs[randDropOff] - 1].dropoffs.append(i)
-                    currDropOffs[randDropOff] = currDropOffs[randDropOff] - 1
-        newCost = cost(path)
+                if (currdropoffs[randdropoff] != 0:
+                    currPath[place - 1] = pathPoint(currPath[place - 1], [], True)
+                    path[place - 1].dropoffs.append(i)
+                    currdropoffs[randdropoff] = place - 1
+        newCost = cost(path, adjacencyMatrix)
         if (newCost < currCost):
             currCost = newCost
         else:
@@ -80,15 +94,3 @@ def simulatedAnnealing(path, points, iters, currDropOffs):
 
 
             
-        
-
-
-
-
-
-
-
-
-
-
-
