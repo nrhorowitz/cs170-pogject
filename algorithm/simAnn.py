@@ -94,15 +94,3 @@ def simulatedAnnealing(path, points, iters, currdropoffs, adjacencyMatrix):
 
 
             
-        
-
-
-
-
-
-
-
-
-
-
-
