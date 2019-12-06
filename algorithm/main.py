@@ -53,7 +53,7 @@ def run_solver(listOfPoints, globalLookup, defaultDict, homeIndex):
     start = pathPoint(listOfPoints[homeIndex], set(homes))
     end = pathPoint(listOfPoints[homeIndex], set([]))
     path = [start, end]
-    path = generateStartingPointPaths(globalLookup, homeIndex)
+    # path = generateStartingPointPaths(globalLookup, homeIndex)
     print("===BEFORE===")
     print(path)
     simulatedAnnealing(path, listOfPoints, defaultDict, globalLookup)
