@@ -241,12 +241,12 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix, avgEdgeWeigh
         #         exit()
 
         
-    for i in optimumPath:
-        print(i.label)
+    # for i in optimumPath:
+        # print(i.label)
     cost(optimumPath, adjacencyMatrix, True)
     print("final Solution Cost:", optimumCost)
-    for i in range(len(optimumPath)):
-        print(list(optimumPath[i].dropoffs), i)
+    # for i in range(len(optimumPath)):
+        # print(list(optimumPath[i].dropoffs), i)
     return optimumPath
 
     

@@ -108,13 +108,25 @@ def sweep_inputs(r=False):
     # run_solver on list of pathpoints ---> the correct list of pathpoints
     # generate_output correct list of pathpoint ---> .out
     # for i in range(1, 367):
-    for i in range(3, 10):
-        print("==============" + str(i))
+    for i in range(1, 8):
+        print("=====FILE: " + str(i) + "_" + str(r) + "=====")
         l, g, d, h, labelLookup, avgEdge = read_input(i, r)
         print(avgEdge)
         path = run_solver(l, g, d, h, avgEdge, True)
-        # path = run_solver(l, g, d, h, avgEdge, False)
         generate_output(path, i, 50, labelLookup)
+        print('\n')
+
+    for i in range(9, 367):
+        print("=====FILE: " + str(i) + "_" + str(r) + "=====")
+        l, g, d, h, labelLookup, avgEdge = read_input(i, r)
+        print(avgEdge)
+        path = run_solver(l, g, d, h, avgEdge, True)
+        generate_output(path, i, 50, labelLookup)
+        print('\n')
+    
+
+
     return 0
+
     
 sweep_inputs(50)
