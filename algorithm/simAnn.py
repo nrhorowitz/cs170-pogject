@@ -50,7 +50,7 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix):
         currdropoffsDict = deepcopy(currdropoffs)
         #add a random vertex before place
         if (choice >= 3):
-            print("adding")
+            # print("adding")
             pointToAdd = points[randint(0, len(points) - 1)]
             pointToAdd = pathPoint(pointToAdd, [])
             place = randint(1, len(path) - 1)
@@ -74,7 +74,7 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix):
                     # print("\n")
         #remove a vertex
         elif (choice >= 2 and len(path) >= 3):
-            print("removing vertex\n")
+            # print("removing vertex\n")
             place = randint(1, len(path) - 2)
             tempPoint = path[place]
             if (path[place - 1].label in path[place + 1].adjacentVertices):
@@ -91,9 +91,12 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix):
                             path[place - 1].dropoffs.add(i)
                             currdropoffs[i] = place - 1
                             # print(i, place - 1)
+                for i in currdropoffs.keys():
+                        if currdropoffs[i] > place:
+                            currdropoffs[i] -=1
                 path = path[:place] + path[place + 1:]
         else:
-            print("moving DropOff\n")
+            # print("moving DropOff\n")
             randdropoff = list(currdropoffs.keys())[randint(0, len(currdropoffs) - 1)]
             destination = randint(0, 1)
             place = currdropoffs[randdropoff]
