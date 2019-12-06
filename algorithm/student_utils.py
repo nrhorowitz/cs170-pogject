@@ -75,14 +75,14 @@ in terms of indices.
 """
 def cost_of_solution(G, car_cycle, dropoff_mapping):
     cost = 0
-    message = ''
+    # message = ''
     dropoffs = dropoff_mapping.keys()
     if not is_valid_walk(G, car_cycle):
-        message += 'This is not a valid walk for the given graph.\n'
+        # message += 'This is not a valid walk for the given graph.\n'
         cost = 'infinite'
 
     if not car_cycle[0] == car_cycle[-1]:
-        message += 'The start and end vertices are not the same.\n'
+        # message += 'The start and end vertices are not the same.\n'
         cost = 'infinite'
     if cost != 'infinite':
         if len(car_cycle) == 1:
@@ -100,12 +100,12 @@ def cost_of_solution(G, car_cycle, dropoff_mapping):
             for house in dropoff_mapping[drop_location]:
                 walking_cost += shortest[drop_location][house]
 
-        message += f'The driving cost of your solution is {driving_cost}.\n'
-        message += f'The walking cost of your solution is {walking_cost}.\n'
+        # message += f'The driving cost of your solution is {driving_cost}.\n '
+        # message += f'The walking cost of your solution is {walking_cost}.\n '
         cost = driving_cost + walking_cost
 
-    message += f'The total cost of your solution is {cost}.\n'
-    return cost, message
+    # message += f'The total cost of your solution is {cost}.\n'
+    return cost
 
 
 def convert_locations_to_indices(list_to_convert, list_of_locations):
