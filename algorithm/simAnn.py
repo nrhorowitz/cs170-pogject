@@ -1,3 +1,9 @@
+"""
+simulatedAnnealing() takes in path, which is a list of pathPoints, points, which is a list of Points, currdropoffs, which is a dictionary that maps
+a ta home index to the index of the path it is on. so if someone living in index 0, and was dropped off at index 3 of the path, it would contain
+the mapping 0:3
+adjacencyMatrix is an adjacency matrix of the graph 
+"""
 from random import randint
 import random
 from pointToIndices import costOfPoints
@@ -29,7 +35,7 @@ class pathPoint:
 def cost(path, adjacencyMatrix):
     return costOfPoints(path, adjacencyMatrix)
 #currdropoffs is a dictionary that is dropoff label to index in path
-def simulatedAnnealing(path, points, iters, currdropoffs, adjacencyMatrix):
+def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix):
     choice = randint(0, 10)
     #add a random vertex before place
     coolingRate = .9
