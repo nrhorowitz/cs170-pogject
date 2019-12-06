@@ -2,6 +2,7 @@ from simAnn import Point
 from simAnn import pathPoint
 from simAnn import simulatedAnnealing
 from floyd import compute_paths
+import numpy as np 
 # from tspORTools import generateStartingPointPaths
 
 MAX_VALUE = float('inf')
@@ -17,7 +18,7 @@ def read_input(index, size):
     labelLookup[len(labelLookup) - 1] = labelLookup[len(labelLookup) - 1][:len(labelLookup[len(labelLookup) - 1]) - 1]
     listOfPoints = []
     globalLookup = []
-    avgEdge = 0
+    avgEdge = []
     numOfEdges = 0
     for i in range(5, 5 + int(contents[0])):
         adjacentList = []
@@ -28,11 +29,11 @@ def read_input(index, size):
                 if '\n' in d[j]:
                     if d[j] != '\n':
                         globalLookupRow.append(float(d[j][:len(d[j])-1]))
-                        avgEdge += float(d[j][:len(d[j])-1])
+                        avgEdge.append(float(d[j][:len(d[j])-1]))
                         numOfEdges += 1
                 else:
                     globalLookupRow.append(float(d[j]))
-                    avgEdge += float(d[j])
+                    avgEdge.append(float(d[j]))
                     numOfEdges += 1
                 adjacentList.append(j)
             else:
@@ -48,13 +49,16 @@ def read_input(index, size):
     defaultDict = {}
     for val in contents[3].split(' '):
         if '\n' in val:
-            newVal = val[:len(val)-1]
-            defaultDict[labelToIndex[newVal]] = 0 # homeIndex
+            if val != '\n':
+                newVal = val[:len(val)-1]
+                defaultDict[labelToIndex[newVal]] = 0 # homeIndex
         else:
             defaultDict[labelToIndex[val]] = 0 # homeIndex
-    avgEdge = avgEdge / numOfEdges
-    print(avgEdge)
-    return listOfPoints, globalLookup, defaultDict, homeIndex, labelLookup, avgEdge
+    quantileData = []
+    quantileData.append(np.quantile(avgEdge, .25))
+    quantileData.append(np.quantile(avgEdge, .5))
+    quantileData.append(np.quantile(avgEdge, .75))
+    return listOfPoints, globalLookup, defaultDict, homeIndex, labelLookup, quantileData
 
 def run_solver(listOfPoints, globalLookup, defaultDict, homeIndex, avgEdge, starting):
     # create default (empty pathpoints)
@@ -107,9 +111,10 @@ def sweep_inputs(r=False):
     for i in range(3, 10):
         print("==============" + str(i))
         l, g, d, h, labelLookup, avgEdge = read_input(i, r)
+        print(avgEdge)
         path = run_solver(l, g, d, h, avgEdge, True)
         # path = run_solver(l, g, d, h, avgEdge, False)
-        # generate_output(path, i, 50, labelLookup)
+        generate_output(path, i, 50, labelLookup)
     return 0
     
 sweep_inputs(50)

@@ -42,8 +42,8 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix, avgEdgeWeigh
     
     
     coolingRate = .999
-    stopTemp = -avgEdgeWeight / math.log(.1)
-    temp = -avgEdgeWeight/math.log(.8)
+    stopTemp = -avgEdgeWeight[0] / math.log(.1)
+    temp = -avgEdgeWeight[2]/math.log(.8)
     worstChange, minChange = 0, float("-inf")
     currCost = cost(path, adjacencyMatrix)
     optimumdropoff = deepcopy(currdropoffs)
