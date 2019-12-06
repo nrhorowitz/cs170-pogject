@@ -43,7 +43,9 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix):
     coolingRate = .99
     stopTemp = 1
     temp = 200
+    
     currCost = cost(path, adjacencyMatrix)
+    print(currCost)
     while(temp > stopTemp):
         choice = randint(0, 10)
         currPath = path[:]
@@ -75,26 +77,32 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix):
         #remove a vertex
         elif (choice >= 2 and len(path) >= 3):
             # print("removing vertex\n")
+           
             place = randint(1, len(path) - 2)
+            numRemove = randint(1, len(path) - place - 1)
             tempPoint = path[place]
-            if (path[place - 1].label in path[place + 1].adjacentVertices):
+            if (path[place - 1].label in path[place + numRemove].adjacentVertices):
                 currPath[place] = pathPoint(currPath[place], [], True)
-                currPath[place + 1] = pathPoint(currPath[place + 1], [], True)
+                currPath[place + numRemove] = pathPoint(currPath[place + numRemove], [], True)
                 currPath[place - 1] = pathPoint(currPath[place - 1], [], True)
-                if(tempPoint.dropoffs):
-                    for i in tempPoint.dropoffs:
+                lostdropoffs = []
+                for i in range(place, place + numRemove):
+                    lostdropoffs += path[i].dropoffs
+                if(lostdropoffs):
+                    for i in lostdropoffs:
                         destination = randint(0,1)
                         if destination:
-                            path[place + 1].dropoffs.add(i)
+                            path[place + numRemove].dropoffs.add(i)
+                            currdropoffs[i] = place + numRemove
                             # print(i, "was moved to",place + 1)
                         else:
                             path[place - 1].dropoffs.add(i)
                             currdropoffs[i] = place - 1
                             # print(i, place - 1)
                 for i in currdropoffs.keys():
-                        if currdropoffs[i] > place:
-                            currdropoffs[i] -=1
-                path = path[:place] + path[place + 1:]
+                        if currdropoffs[i] >= place + numRemove:
+                            currdropoffs[i] -=numRemove
+                path = path[:place] + path[place + numRemove:]
         else:
             # print("moving DropOff\n")
             randdropoff = list(currdropoffs.keys())[randint(0, len(currdropoffs) - 1)]
@@ -144,7 +152,9 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix):
         temp = temp * coolingRate
     # for i in path:
         # print(i.label)
+    print(currCost)
     return path
+
     
         
 
