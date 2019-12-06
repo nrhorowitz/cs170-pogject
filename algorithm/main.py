@@ -17,6 +17,8 @@ def read_input(index, size):
     labelLookup[len(labelLookup) - 1] = labelLookup[len(labelLookup) - 1][:len(labelLookup[len(labelLookup) - 1]) - 1]
     listOfPoints = []
     globalLookup = []
+    avgEdge = 0
+    numOfEdges = 0
     for i in range(5, 5 + int(contents[0])):
         adjacentList = []
         d = contents[i].split(" ")
@@ -25,8 +27,12 @@ def read_input(index, size):
             if 'x' not in d[j]:
                 if '\n' in d[j]:
                     globalLookupRow.append(float(d[j][:len(d[j])-1]))
+                    avgEdge += float(d[j][:len(d[j])-1])
+                    numOfEdges += 1
                 else:
                     globalLookupRow.append(float(d[j]))
+                    avgEdge += float(d[j])
+                    numOfEdges += 1
                 adjacentList.append(j)
             else:
                 globalLookupRow.append('x')
@@ -45,14 +51,14 @@ def read_input(index, size):
             defaultDict[labelToIndex[newVal]] = 0 # homeIndex
         else:
             defaultDict[labelToIndex[val]] = 0 # homeIndex
-    return listOfPoints, globalLookup, defaultDict, homeIndex, labelLookup
+    avgEdge = avgEdge / numOfEdges
+    print(avgEdge)
+    return listOfPoints, globalLookup, defaultDict, homeIndex, labelLookup, avgEdge
 
-def run_solver(listOfPoints, globalLookup, defaultDict, homeIndex, starting):
+def run_solver(listOfPoints, globalLookup, defaultDict, homeIndex, avgEdge, starting):
     # create default (empty pathpoints)
     path = []
     if (starting):
-        print("DEF")
-        print(defaultDict)
         homes = []
         for i in defaultDict.keys():
             homes.append(i)
@@ -61,7 +67,7 @@ def run_solver(listOfPoints, globalLookup, defaultDict, homeIndex, starting):
         path = [start, end]
     else:
         path = compute_paths(globalLookup, defaultDict, homeIndex)
-    path = simulatedAnnealing(path, listOfPoints, defaultDict, globalLookup)
+    path = simulatedAnnealing(path, listOfPoints, defaultDict, globalLookup, avgEdge)
     return path
 
 # Given list of path points, generate output file with name
@@ -106,9 +112,9 @@ def sweep_inputs(r=False):
 =======
     for i in range(3, 10):
         print("==============" + str(i))
-        l, g, d, h, labelLookup = read_input(i, r)
-        path = run_solver(l, g, d, h, True)
-        # path = run_solver(l, g, d, h, False)
+        l, g, d, h, labelLookup, avgEdge = read_input(i, r)
+        path = run_solver(l, g, d, h, avgEdge, True)
+        #path = run_solver(l, g, d, h, avgEdge, False)
         # generate_output(path, i, 50, labelLookup)
 >>>>>>> b3c0808313ee7c54a98b92d173a20114c34d5ab0
     return 0
