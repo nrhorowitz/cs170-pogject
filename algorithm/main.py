@@ -1,26 +1,36 @@
+from simAnn import Point
+from simAnn import pathPoint
+
 MAX_VALUE = float('inf')
 
 # Given file name, return input in data form
+# convert input to null path and list of points and distance lookup
 def read_input(file_name):
     f = open("inputs/" + file_name, "r")
     contents = f.readlines()
-    data = []
+    labelLookup = contents[2].split(" ")
+    labelLookup[len(labelLookup) - 1] = labelLookup[len(labelLookup) - 1][:len(labelLookup[len(labelLookup) - 1]) - 1]
+    # print(labelLookup)
+    listOfPoints = []
+    globalLookup = []
     for i in range(5, 5 + int(contents[0])):
+        adjacentList = []
         d = contents[i].split(" ")
-        row = []
-        for val in d:
-            if val == 'x':
-                row.append(MAX_VALUE)
-            elif '\n' in val:
-                v = val[:len(val)-1]
-                if v == 'x':
-                    row.append(MAX_VALUE)
+        globalLookupRow = []
+        for j in range(0, int(contents[0])):
+            if 'x' not in d[j]:
+                if '\n' in d[j]:
+                    globalLookupRow.append(int(d[j][:len(d[j])-1]))
                 else:
-                    row.append(int(v))
+                    globalLookupRow.append(int(d[j]))
+                adjacentList.append(j)
             else:
-                row.append(int(val))
-        data.append(row)
-    print(data)
+                globalLookupRow.append(MAX_VALUE)
+        print(adjacentList)
+        globalLookup.append(globalLookupRow)
+        p = Point(i - 5, adjacentList, labelLookup[i - 5])
+        listOfPoints.append(p)
+    print(globalLookup)
     
     return 0
 
