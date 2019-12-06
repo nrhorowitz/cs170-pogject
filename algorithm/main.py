@@ -52,7 +52,7 @@ def read_input(index, size):
         else:
             defaultDict[labelToIndex[val]] = 0 # homeIndex
     avgEdge = avgEdge / numOfEdges
-    print(avgEdge)
+    # print(avgEdge)
     return listOfPoints, globalLookup, defaultDict, homeIndex, labelLookup, avgEdge
 
 def run_solver(listOfPoints, globalLookup, defaultDict, homeIndex, avgEdge, starting):
@@ -103,20 +103,12 @@ def sweep_inputs(r=False):
     # run_solver on list of pathpoints ---> the correct list of pathpoints
     # generate_output correct list of pathpoint ---> .out
     # for i in range(1, 367):
-<<<<<<< HEAD
-    #for i in range(1, 10):
-    l, g, d, h, labelLookup = read_input(3, r)
-    path = run_solver(l, g, d, h, True)
-    #path = run_solver(l, g, d, h, False)
-    # generate_output(path, i, 50, labelLookup)
-=======
-    for i in range(3, 10):
-        print("==============" + str(i))
-        l, g, d, h, labelLookup, avgEdge = read_input(i, r)
-        path = run_solver(l, g, d, h, avgEdge, True)
+    # for i in range(3, 10):
+    #     print("==============" + str(i))
+    l, g, d, h, labelLookup, avgEdge = read_input(0, r)
+    path = run_solver(l, g, d, h, avgEdge, True)
         #path = run_solver(l, g, d, h, avgEdge, False)
         # generate_output(path, i, 50, labelLookup)
->>>>>>> b3c0808313ee7c54a98b92d173a20114c34d5ab0
     return 0
     
 sweep_inputs(50)
