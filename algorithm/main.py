@@ -1,7 +1,7 @@
 from simAnn import Point
 from simAnn import pathPoint
 from simAnn import simulatedAnnealing
-from tspORTools import generateStartingPointPaths
+# from tspORTools import generateStartingPointPaths
 
 MAX_VALUE = float('inf')
 
