@@ -1,5 +1,5 @@
 """Simple travelling salesman problem between cities."""
-# python3 -m pip install --upgrade --user ortools
+# sudo python3 -m pip install --upgrade --user ortools
 
 from __future__ import print_function
 from ortools.constraint_solver import routing_enums_pb2

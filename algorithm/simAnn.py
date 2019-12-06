@@ -8,7 +8,6 @@ adjacencyMatrix is an adjacency matrix of the graph
 from random import randint
 import random
 import math
-from scipy import constants
 from pointsToIndices import costOfPoints
 from copy import deepcopy
 #an object represents each vertex in original graph
@@ -68,12 +67,8 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix):
                     path = path[0:place] + [pointToAdd] + [prevCopy] + path[place:]
                     # print("\n")
         #remove a vertex
-<<<<<<< HEAD
         elif (choice >= 2 and len(path) >= 3):
             print("removing vertex\n")
-=======
-        elif (choice >= 6 and len(path) >= 3):
->>>>>>> f56471107940b8a5002151bf6a12e8d2b7a9ad17
             place = randint(1, len(path) - 2)
             tempPoint = path[place]
             if (path[place - 1].label in path[place + 1].adjacentVertices):
