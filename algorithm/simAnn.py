@@ -75,6 +75,7 @@ def simulatedAnnealing(path, points, iters, currDropOffs):
             else:
                 path = currPath
         temp = temp * coolingRate
+    
         
 
 
@@ -91,5 +92,3 @@ def simulatedAnnealing(path, points, iters, currDropOffs):
 
 
 
-
-        
