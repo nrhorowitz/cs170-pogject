@@ -48,8 +48,9 @@ def read_input(index, size):
     defaultDict = {}
     for val in contents[3].split(' '):
         if '\n' in val:
-            newVal = val[:len(val)-1]
-            defaultDict[labelToIndex[newVal]] = 0 # homeIndex
+            if val != '\n':
+                newVal = val[:len(val)-1]
+                defaultDict[labelToIndex[newVal]] = 0 # homeIndex
         else:
             defaultDict[labelToIndex[val]] = 0 # homeIndex
     avgEdge = avgEdge / numOfEdges
@@ -109,7 +110,7 @@ def sweep_inputs(r=False):
         l, g, d, h, labelLookup, avgEdge = read_input(i, r)
         path = run_solver(l, g, d, h, avgEdge, True)
         # path = run_solver(l, g, d, h, avgEdge, False)
-        # generate_output(path, i, 50, labelLookup)
+        generate_output(path, i, 50, labelLookup)
     return 0
     
 sweep_inputs(50)
