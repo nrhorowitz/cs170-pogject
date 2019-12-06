@@ -61,7 +61,7 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix, avgEdgeWeigh
         currdropoffsDict = deepcopy(currdropoffs)
         
         #add a random vertex before place
-        if (choice >= 50):
+        if (choice >= 40):
             # print("adding")
             place = randint(1, len(path) - 1)
             
@@ -92,7 +92,7 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix, avgEdgeWeigh
                     path = path[0:place] + [pointToAdd] + [prevCopy] + path[place:]
                     # print("\n")
         #remove vertices
-        elif (choice > 40 and len(path) >= 3):
+        elif (choice > 30 and len(path) >= 3):
             place = randint(1, len(path) - 2)
             numRemove = randint(1, len(path) - place - 1)
             # print(place, numRemove, "removedata")
@@ -142,7 +142,7 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix, avgEdgeWeigh
                             path[place - 1].dropoffs.add(i)
                             currdropoffs[i] -=1
                         path[place].dropoffs = set()
-        elif (choice > 35):
+        elif (choice > 25):
             currdropoffs = deepcopy(optimumdropoff)
             currCost = optimumCost
             path = deepcopy(optimumPath)
