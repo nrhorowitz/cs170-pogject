@@ -41,7 +41,7 @@ def cost(path, adjacencyMatrix, final = False):
 def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix, avgEdgeWeight = 0):
     
     
-    coolingRate = .9999
+    coolingRate = .9939
     stopTemp = -avgEdgeWeight[0] / math.log(.1)
     temp = -avgEdgeWeight[2]/math.log(.8)
     worstChange, minChange = 0, float("-inf")
@@ -52,10 +52,10 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix, avgEdgeWeigh
     
     print("Soda Sol:", currCost)
     while(temp > stopTemp):
-        print(currCost)
-        for i in path:
-            print(i.label, end = " ")
-        print()
+        # print(currCost)
+        # for i in path:
+        #     print(i.label, end = " ")
+        # print()
         choice = randint(0, 1000)
         currPath = path[:]
         currdropoffsDict = deepcopy(currdropoffs)
@@ -97,7 +97,7 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix, avgEdgeWeigh
             numRemove = randint(1, len(path) // 3)
             if len(path) - 1 - place < numRemove:
                 numRemove = randint(1, len(path) - 1 - place)
-            print(place, numRemove, "removedata", len(path))
+            # print(place, numRemove, "removedata", len(path))
             if (path[place - 1].label in path[place + numRemove].adjacentVertices or path[place - 1].label == path[place + numRemove].label):
                 # print("removing vertex\n")
                 currPath[place] = pathPoint(currPath[place], [], True)
