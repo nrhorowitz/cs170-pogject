@@ -116,22 +116,26 @@ def sweep_inputs(r=False):
     # run_solver on list of pathpoints ---> the correct list of pathpoints
     # generate_output correct list of pathpoint ---> .out
     # for i in range(1, 367)::
-    num = 121
-    print("=====FILE: " + str(num) + "_" + str(r) + "=====")
-    l, g, d, h, labelLookup, avgEdge = read_input(num, r)
-    print(avgEdge)
-    path = run_solver(l, g, d, h, avgEdge, True)
-    for i in range((len(path))):
-        if (path[i].dropoffs):
-            for j in range(i + 1, len(path)):
-                if(path[i].label == path[j].label):
-                    if len(path[j].dropoffs) > 0:
-                        path[i].dropoffs = path[i].dropoffs | path[j].dropoffs
-                        path[j].dropoffs = set()
-    for i in path:
-        print(i.label, i.dropoffs)
-    generate_output(path, num, 50, labelLookup)
-    print('\n')
+    for num in range(360, 1, - 1):
+        try:
+            print("=====FILE: " + str(num) + "_" + str(r) + "=====")
+            l, g, d, h, labelLookup, avgEdge = read_input(num, r)
+            print(avgEdge)
+        
+            path = run_solver(l, g, d, h, avgEdge, True)
+        except:
+            continue
+        for i in range((len(path))):
+            if (path[i].dropoffs):
+                for j in range(i + 1, len(path)):
+                    if(path[i].label == path[j].label):
+                        if len(path[j].dropoffs) > 0:
+                            path[i].dropoffs = path[i].dropoffs | path[j].dropoffs
+                            path[j].dropoffs = set()
+        for i in path:
+            print(i.label, i.dropoffs)
+        generate_output(path, num, 50, labelLookup)
+        print('\n')
 
     # for i in range(9, 367):
     #     print("=====FILE: " + str(i) + "_" + str(r) + "=====")
