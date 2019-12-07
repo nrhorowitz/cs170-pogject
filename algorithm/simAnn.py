@@ -41,7 +41,7 @@ def cost(path, adjacencyMatrix, final = False):
 def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix, avgEdgeWeight = 0):
     
     
-    coolingRate = .99
+    coolingRate = .9999
     stopTemp = -avgEdgeWeight[0] / math.log(.1)
     temp = -avgEdgeWeight[2]/math.log(.8)
     worstChange, minChange = 0, float("-inf")
@@ -52,25 +52,24 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix, avgEdgeWeigh
     
     print("Soda Sol:", currCost)
     while(temp > stopTemp):
-        # print(currCost)
-        # for i in path:
-        #     print(i.label, end = " ")
-        # print()
+        print(currCost)
+        for i in path:
+            print(i.label, end = " ")
+        print()
         choice = randint(0, 1000)
         currPath = path[:]
         currdropoffsDict = deepcopy(currdropoffs)
         
         #add a random vertex before place
-        if (choice >= 400):
+        if (choice >= 450):
             # print("adding")
             place = randint(1, len(path) - 1)
-            
-            pointToAdd = points[random.choice(points[place - 1].adjacentVertices)]
+            pointToAdd = points[random.choice(path[place - 1].adjacentVertices)]
             
             pointToAdd = pathPoint(pointToAdd, [])
             chance = randint(0, 10)
             # print(path[place - 1].adjacentVertices, random.choice(path[place - 1].adjacentVertices), path[place - 1].adjacentVertices, place, chance, pointToAdd.adjacentVertices)
-            if (chance > 4):
+            if (chance > 3):
                 if (path[place - 1].label in pointToAdd.adjacentVertices and path[place].label in pointToAdd.adjacentVertices):
                     # print(pointToAdd.label, place)
                     # print("adding vertex\n")
@@ -90,12 +89,15 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix, avgEdgeWeigh
                         if currdropoffs[i] >= place:
                             currdropoffs[i] +=2
                     path = path[0:place] + [pointToAdd] + [prevCopy] + path[place:]
+                    
                     # print("\n")
         #remove vertices
         elif (choice > 350 and len(path) >= 3):
             place = randint(1, len(path) - 2)
-            numRemove = randint(1, len(path) - place - 1)
-            # print(place, numRemove, "removedata")
+            numRemove = randint(1, len(path) // 3)
+            if len(path) - 1 - place < numRemove:
+                numRemove = randint(1, len(path) - 1 - place)
+            print(place, numRemove, "removedata", len(path))
             if (path[place - 1].label in path[place + numRemove].adjacentVertices or path[place - 1].label == path[place + numRemove].label):
                 # print("removing vertex\n")
                 currPath[place] = pathPoint(currPath[place], [], True)
@@ -142,10 +144,11 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix, avgEdgeWeigh
                             path[place - 1].dropoffs.add(i)
                             currdropoffs[i] -=1
                         path[place].dropoffs = set()
-        elif (choice >= 295):
-            currdropoffs = deepcopy(optimumdropoff)
-            currCost = optimumCost
-            path = deepcopy(optimumPath)
+        elif (choice > 349):
+            if randint(0, 8) == 2:
+                currdropoffs = deepcopy(optimumdropoff)
+                currCost = optimumCost
+                path = deepcopy(optimumPath)
         else:
             # print("moving DropOff\n")
             randdropoff = list(currdropoffs.keys())[randint(0, len(currdropoffs) - 1)]
@@ -220,6 +223,7 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix, avgEdgeWeigh
                 # print("not")
                 path = currPath
                 currdropoffs = currdropoffsDict
+        
         temp = temp * coolingRate
         # sumError = 0
         # for i in path:
@@ -238,11 +242,7 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix, avgEdgeWeigh
         #         for i in path:
         #             print(list(i.dropoffs), i.label)
 
-        #         exit()
-
-        
-    # for i in optimumPath:
-        # print(i.label)
+        #         exit()   
     cost(optimumPath, adjacencyMatrix, True)
     print("final Solution Cost:", optimumCost)
     # for i in range(len(optimumPath)):
