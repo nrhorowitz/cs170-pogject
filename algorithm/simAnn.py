@@ -52,7 +52,7 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix, avgEdgeWeigh
     
     print("Soda Sol:", currCost)
     while(temp > stopTemp):
-        print(currCost)
+        # print(currCost)
         # for i in path:
         #     print(i.label, end = " ")
         # print()
