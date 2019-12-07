@@ -41,7 +41,7 @@ def cost(path, adjacencyMatrix, final = False):
 def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix, avgEdgeWeight = 0):
     
     
-    coolingRate = .999
+    coolingRate = .99
     stopTemp = -avgEdgeWeight[0] / math.log(.1)
     temp = -avgEdgeWeight[2]/math.log(.8)
     worstChange, minChange = 0, float("-inf")
@@ -52,16 +52,16 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix, avgEdgeWeigh
     
     print("Soda Sol:", currCost)
     while(temp > stopTemp):
-        # print(currCost)
+        print(currCost)
         # for i in path:
         #     print(i.label, end = " ")
         # print()
-        choice = randint(0, 100)
+        choice = randint(0, 1000)
         currPath = path[:]
         currdropoffsDict = deepcopy(currdropoffs)
         
         #add a random vertex before place
-        if (choice >= 40):
+        if (choice >= 400):
             # print("adding")
             place = randint(1, len(path) - 1)
             
@@ -92,7 +92,7 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix, avgEdgeWeigh
                     path = path[0:place] + [pointToAdd] + [prevCopy] + path[place:]
                     # print("\n")
         #remove vertices
-        elif (choice > 30 and len(path) >= 3):
+        elif (choice > 350 and len(path) >= 3):
             place = randint(1, len(path) - 2)
             numRemove = randint(1, len(path) - place - 1)
             # print(place, numRemove, "removedata")
@@ -142,7 +142,7 @@ def simulatedAnnealing(path, points, currdropoffs, adjacencyMatrix, avgEdgeWeigh
                             path[place - 1].dropoffs.add(i)
                             currdropoffs[i] -=1
                         path[place].dropoffs = set()
-        elif (choice > 26):
+        elif (choice >= 295):
             currdropoffs = deepcopy(optimumdropoff)
             currCost = optimumCost
             path = deepcopy(optimumPath)
