@@ -1,7 +1,7 @@
-node0 node8 node21 node8 node41 node0
+node0 node33 node28 node47 node12 node0
 5
-node0 node35 node39 node41 node45 node25
-node8 node38 node42 node46 node49 node27 node31
-node21 node33 node36 node37 node40 node47 node48 node26 node30
-node8 node34 node43 node28
-node41 node32 node44 node29
+node0 node32 node41 node25
+node33 node33 node26
+node28 node34 node38 node42 node46 node48 node27 node28 node29 node31
+node47 node35 node39 node44 node45 node47
+node12 node36 node37 node40 node43 node49 node30
